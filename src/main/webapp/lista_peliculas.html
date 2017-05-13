@@ -1,0 +1,161 @@
+<html>
+<head><title>Avisador Homecinema</title>
+    <link rel="icon" type="/image/png" href="/images/favicon.png" />
+    <!-- ================== BEGIN BASE CSS STYLE ================== -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <link href="assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="assets/css/animate.min.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+    <link href="assets/css/style-responsive.css" rel="stylesheet" />
+    <link href="assets/css/theme/default.css" rel="stylesheet" id="theme" />
+    <link href="assets/plugins/bootstrap/css/simple-sidebar.css" rel="stylesheet">
+    <!-- ================== END BASE CSS STYLE ================== -->
+    
+    <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
+    <link href="assets/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" />
+    <link href="assets/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
+    <link href="assets/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
+    <!-- ================== END PAGE LEVEL STYLE ================== -->
+    
+    <!-- ================== BEGIN BASE JS ================== -->
+    <script src="assets/plugins/pace/pace.min.js"></script>
+    <!-- ================== END BASE JS ================== -->
+    <meta name="signin-client_id" id="signin-client_id">
+
+    <script type="text/javascript">
+        function loadTable() {
+            var url = "webapi/films//filmsofauser";   
+            $.ajax({url:url, success: callbackTable});
+            return true;
+        }
+
+        function callbackTable(json) {
+            var i, j=json.length;
+            var divRow = document.getElementById("divRow");
+            for(i=0; i<=json.length; i++) {
+                var divCol = document.createElement("div");
+                divCol.setAttribute("id", "divCol"+(i));
+                divCol.setAttribute("class", "col-md-3");
+
+                var panelInverse = document.createElement("div");
+                panelInverse.setAttribute("id", "divPanelInverse"+(i));
+                panelInverse.setAttribute("class", "panel panel-inverse");
+                
+                var panelHeading = document.createElement("div");
+                panelHeading.setAttribute("id", "divPanelHeading"+(i));
+                panelHeading.setAttribute("class", "panel-heading");
+
+                var h4 = document.createElement("h4");
+                h4.setAttribute("id", "titulo"+(i));
+                h4.setAttribute("class", "panel-title");
+                h4.innerHTML = json[i].titulo;
+
+                var panelBody = document.createElement("div");
+                panelBody.setAttribute("id", "divPanelBody");
+                panelBody.setAttribute("class", "panel-body");
+
+                var divContent = document.createElement("div");
+                divContent.setAttribute("id", "divContent"+(i));
+
+                var img = document.createElement("img");
+                img.setAttribute("id", "portada"+(i));
+                img.setAttribute("src", json[i].imagen);
+                img.setAttribute("height", "150");
+                img.setAttribute("width", "100");
+
+                var anyo = document.createElement("p");
+                anyo.setAttribute("id", "anyo"+(i));
+                anyo.innerHTML = "Año: " + json[i].anyo;
+
+                var estreno = document.createElement("p");
+                estreno.setAttribute("id", "estreno"+(i));
+                estreno.innerHTML = "Estreno: " + json[i].estreno;
+
+                var duracion = document.createElement("p");
+                duracion.setAttribute("id", "duracion"+(i));
+                duracion.innerHTML = "Duración: " + json[i].duracion;
+
+                var genero= document.createElement("p");
+                genero.setAttribute("id", "genero"+(i));
+                genero.innerHTML = "Género: " + json[i].genero;
+                
+                var director= document.createElement("p");
+                director.setAttribute("id", "director"+(i));
+                director.innerHTML = "Director: " + json[i].director;
+
+                var sinopsis= document.createElement("p");
+                sinopsis.setAttribute("id", "sinopsis"+(i));
+                sinopsis.innerHTML = "Sinopsis: " + json[i].sinopsis;
+                
+                divRow.appendChild(divCol);
+                divCol.appendChild(panelInverse);
+                panelInverse.appendChild(panelHeading);
+                panelHeading.appendChild(h4);
+                panelInverse.appendChild(panelBody);
+                panelBody.appendChild(divContent);
+                divContent.appendChild(img);
+                divContent.appendChild(anyo);
+                divContent.appendChild(estreno);
+                divContent.appendChild(duracion);
+                divContent.appendChild(genero);
+                divContent.appendChild(director);
+                divContent.appendChild(sinopsis);
+            }    
+        }
+    </script>
+</head>
+<body onload="loadTable()">
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                        Men&uacute;
+                    </a>
+                </li>
+                <li>
+                    <a href="/home_page.html">Inicio</a>
+                </li>
+                <li>
+                    <a href="">Perfil de usuario</a>
+                </li>
+                <li>
+                    <a href="#">Mis Pel&iacute;culas</a>
+                </li>
+                <li><a href="#menu-toggle" class="sidebar-minify-btn" id="menu-toggle" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>
+            </ul>
+
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <h1>Mis pel&iacute;culas</h1>
+                <div id="divRow" class="row"></div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="assets/plugins/bootstrap/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
+</body>
+</html>

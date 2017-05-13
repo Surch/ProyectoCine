@@ -1,0 +1,125 @@
+<html>
+<head><title>Avisador Homecinema</title>
+	<link rel="icon" type="/image/png" href="/images/favicon.png" />
+
+	<!-- ================== BEGIN BASE CSS STYLE ================== -->
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+	<link href="assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
+	<link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="assets/css/animate.min.css" rel="stylesheet" />
+	<link href="assets/css/style.css" rel="stylesheet" />
+	<link href="assets/css/style-responsive.css" rel="stylesheet" />
+	<link href="assets/css/theme/default.css" rel="stylesheet" id="theme" />
+	<!-- ================== END BASE CSS STYLE ================== -->
+	
+	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
+	<link href="assets/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" />
+	<link href="assets/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
+	<link href="assets/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
+	<!-- ================== END PAGE LEVEL STYLE ================== -->
+	
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="assets/plugins/pace/pace.min.js"></script>
+	<script src="/jquery.min.js"></script>
+	<!-- ================== END BASE JS ================== -->
+	<meta name="signin-client_id" id="signin-client_id">
+
+	<script type="text/javascript">
+		var req;
+		var latestSent = "";
+
+		function register() {
+			var nick = document.getElementById("nicknameR").value;
+			var email = document.getElementById("emailR").value;
+			var pass = document.getElementById("passwordR").value;
+			var passRe = document.getElementById("passwordRre").value;
+			if(pass == passRe){
+				var parametros = {
+					'nickname': nick,
+					'email': email,
+					'password': pass
+				};
+				var url = "webapi/users/register";
+				if (latestSent != url) {
+					$.ajax({
+						data: JSON.stringify(parametros),
+						type: "POST",
+						url: url,
+						contentType :"application/json;charSet=UTF-8",
+						dataType : "xml",
+						success: function (xml){
+							if($(xml).find("message").text() == "201"){
+								alert("Registro realizado satisfactoriamente.");	
+								window.location.href = "/index_homecinema.html";
+							}
+						}
+					});
+				}
+				latestSent = url;
+			}else{
+				alert("Las contraseñas deben coincidir.");
+			}
+			
+		}
+
+		/*function callback(xml) {
+			// update the HTML DOM based on whether or not message is valid
+			parseMessage("gestorUsuarios", xml);
+		}
+		
+		function parseMessage(fieldID, xml) {
+			//var message = req.responseXML.getElementsByTagName("message")[0];
+			//setMessage(fieldID, message.childNodes[0].nodeValue);
+			setMessage(fieldID, $(xml).find("message").text());
+		}*/
+	</script>
+
+</head>
+<body>
+	<div class="container">
+		<h1 align=center>P&aacute;gina de Registro</h1>
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-7">
+				<div class="panel panel-inverse">
+					<div class="panel-heading">¡Regístrate! ¡Es muy fácil!</div>
+					<div class="panel-body">
+						<form class="form-horizontal" role="form">
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="nicknameR">Usuario</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="nicknameR" placeholder="nickname"/>   
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="emailR">Email</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="emailR" placeholder="email"/>   
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="passwordR">Contrase&ntilde;a</label>
+								<div class="col-sm-10">   
+									<input type="password" class="form-control" id="passwordR" placeholder="contrase&ntilde;a"/>   
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="passwordRre">Repite la Contrase&ntilde;a</label>
+								<div class="col-sm-10">   
+									<input type="password" class="form-control" id="passwordRre" placeholder="Repite contrase&ntilde;a"/>   
+								</div>
+							</div>
+							<a class='btn btn-success btn-block btn-lg' role="button" onclick="register();">Registrarse</a>
+						</form>
+					</div>
+					<div>
+						<a href="/index_homecinema.html"><p align=center>Volver</p></a>
+					</div>
+				</div>
+			</div>    
+			<div class="col-md-2"></div>
+		</div>
+	</div>
+</body>
+</html>

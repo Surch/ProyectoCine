@@ -1,0 +1,358 @@
+/* CUSTOMIZE THE NAVBAR
+-------------------------------------------------- */
+
+/* Special class on .container surrounding .navbar, used for positioning it into place. */
+.navbar-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+}
+
+/* Flip around the padding for proper display in narrow viewports */
+.navbar-wrapper .container {
+  padding-left: 0;
+  padding-right: 0;
+}
+.navbar-wrapper .navbar {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+
+/* CUSTOMIZE THE CAROUSEL
+-------------------------------------------------- */
+
+/* Carousel base class */
+.carousel {
+  height: 500px;
+  margin-bottom: 60px;
+}
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+  z-index: 10;
+}
+
+/* Declare heights because of positioning of img element */
+.carousel .item {
+  height: 500px;
+  background-color: #777;
+}
+.carousel-inner > .item > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  height: 500px;
+}
+
+
+
+/* MARKETING CONTENT
+-------------------------------------------------- */
+
+/* Pad the edges of the mobile views a bit */
+.marketing {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Center align the text within the three columns below the carousel */
+.marketing .col-lg-4 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.marketing h2 {
+  font-weight: normal;
+}
+.marketing .col-lg-4 p {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+
+/* Featurettes
+------------------------- */
+
+.featurette-divider {
+  margin: 60px 0; /* Space out the Bootstrap <hr> more */
+}
+
+.featurette-divider-examples {
+  margin: 100px 0; /* Space out the Bootstrap <hr> more */
+  border-width: 20px;
+  border: solid;
+}
+
+.featurette-divider-examples-hide {
+  margin: 50px 0; /* Space out the Bootstrap <hr> more */
+  border-width: 0;
+  border: none;
+}
+
+/* Thin out the marketing headings */
+.featurette-heading {
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.featurette-heading-example {
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -1px;
+  background-color:  #2b9464;
+  padding: 10px;
+  margin-left: -90px;
+  margin-right: 70px;
+}
+
+.featurette-heading-example .text-muted {
+  background-color:  #2f7656;
+  padding: 15px;
+}
+
+.featurette-heading-example .text-muted a {
+    color: #CCC;
+}
+
+.featurette a {
+  font-size: 23px;
+  color: #242A30;
+  text-decoration: none;
+}
+
+.featurette img {
+  margin-right: 10px;
+}
+
+/* RESPONSIVE CSS
+-------------------------------------------------- */
+
+@media (min-width: 768px) {
+
+  /* Remove the edge padding needed for mobile */
+  .marketing {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* Navbar positioning foo */
+  .navbar-wrapper {
+    margin-top: 20px;
+  }
+  .navbar-wrapper .container {
+    padding-left:  15px;
+    padding-right: 15px;
+  }
+  .navbar-wrapper .navbar {
+    padding-left:  0;
+    padding-right: 0;
+  }
+
+  /* The navbar becomes detached from the top, so we round the corners */
+  .navbar-wrapper .navbar {
+    border-radius: 4px;
+  }
+
+  /* Bump up size of carousel content */
+  .carousel-caption p {
+    margin-bottom: 20px;
+    font-size: 21px;
+    line-height: 1.4;
+  }
+
+  .featurette-heading, .featurette-heading-example {
+    font-size: 50px;
+  }
+
+}
+
+@media (min-width: 992px) {
+  .featurette-heading, .featurette-heading-example {
+    text-align: right;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 1200px) {
+
+  .featurette-heading-example {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+  .featurette-heading-example .text-muted {
+       padding: 2px 4px;
+    }
+
+  .featurette-divider-examples-hide {
+      margin: 50px 0; /* Space out the Bootstrap <hr> more */
+      border-width: 0;
+      border: none;
+    }
+}
+
+.wheelNav400 {
+    height: 400px;
+    width: 400px;
+    margin: auto;
+    -moz-transition: ease 1s;
+    -o-transition: ease 1s;
+    -webkit-transition: ease 1s;
+    transition: ease 1s;
+}
+
+.wheelNav350 {
+    height: 350px;
+    width: 350px;
+    margin: auto;
+    -moz-transition: ease 1s;
+    -o-transition: ease 1s;
+    -webkit-transition: ease 1s;
+    transition: ease 1s;
+}
+
+.wheelNav300 {
+    height: 300px;
+    width: 300px;
+    margin: auto;
+    -moz-transition: ease 1s;
+    -o-transition: ease 1s;
+    -webkit-transition: ease 1s;
+    transition: ease 1s;
+}
+
+.wheelNavExample300 {
+    height: 350px;
+    width: 350px;
+    margin: auto 80px auto auto;
+}
+
+.wheelNav200 {
+    height: 200px;
+    width: 200px;
+    margin: auto;
+    -moz-transition: ease 1s;
+    -o-transition: ease 1s;
+    -webkit-transition: ease 1s;
+    transition: ease 1s;
+}
+
+.wheelNav200fix {
+    height: 200px;
+    width: 200px;
+    margin: auto;
+}
+
+.wheelNavHalfTitle {
+    display: block;
+    margin-bottom: -5px;
+    text-align: center;
+}
+
+.wheelNavHalf200 {
+    height: 115px;
+    width: 150px;
+    margin: auto;
+    -moz-transition: ease 1s;
+    -o-transition: ease 1s;
+    -webkit-transition: ease 1s;
+    transition: ease 1s;
+}
+
+.wheelNav100 {
+    height: 150px;
+    width: 110px;
+    -moz-transition: ease 1s;
+    -o-transition: ease 1s;
+    -webkit-transition: ease 1s;
+    transition: ease 1s;
+}
+
+.wheelNavChapter {
+    height: 100px;
+    width: 100px;
+    margin: auto;
+}
+
+.wheelNav400 > svg,
+.wheelNav350 > svg,
+.wheelNav300 > svg,
+.wheelNav200 > svg,
+.wheelNavHalf200 > svg,
+.wheelNav100 > svg {
+    width: 100%;
+    height: 100%;
+}
+
+@media (max-width: 680px) {
+  .wheelNav400 {
+    height: 350px;
+    width: 350px;
+    margin: auto;
+  }
+
+  .wheelNav350 {
+    height: 300px;
+    width: 300px;
+    margin: auto;
+  }
+
+  .wheelNav300 {
+    height: 250px;
+    width: 250px;
+    margin: auto;
+  }
+
+  .wheelNav200 {
+    height: 180px;
+    width: 180px;
+  }
+
+  .wheelNavHalf200 {
+    height: 110px;
+    width: 150px;
+  }
+
+  .wheelNav100 {
+    height: 130px;
+    width: 85px;
+  }
+}
+
+@media (max-width: 480px) {
+  .wheelNav400 {
+    height: 300px;
+    width: 300px;
+    margin: auto;
+  }
+
+  .wheelNav350 {
+    height: 250px;
+    width: 250px;
+    margin: auto;
+  }
+
+  .wheelNav300 {
+    height: 200px;
+    width: 200px;
+    margin: auto;
+  }
+
+  .wheelNav200 {
+    height: 160px;
+    width: 160px;
+  }
+
+  .wheelNavHalf200 {
+    height: 105px;
+    width: 150px;
+  }
+
+  .wheelNav100 {
+    height: 100px;
+    width: 60px;
+  }
+}

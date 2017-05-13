@@ -1,0 +1,158 @@
+<html>
+<head><title>Avisador Homecinema</title>
+	<link rel="icon" type="/image/png" href="/images/favicon.png" />
+
+	<script type="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>	
+	<!-- ================== BEGIN BASE CSS STYLE ================== -->
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+	<link href="assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
+	<link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="assets/css/animate.min.css" rel="stylesheet" />
+	<link href="assets/css/style.css" rel="stylesheet" />
+	<link href="assets/css/style-responsive.css" rel="stylesheet" />
+	<link href="assets/css/theme/default.css" rel="stylesheet" id="theme" />
+	<!-- ================== END BASE CSS STYLE ================== -->
+	
+	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
+	<link href="assets/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" />
+	<link href="assets/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
+	<link href="assets/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
+	<!-- ================== END PAGE LEVEL STYLE ================== -->
+	
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="assets/plugins/pace/pace.min.js"></script>
+	<script src="/jquery.min.js"></script>
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<!-- ================== END BASE JS ================== -->
+	<!--<meta name="google-signin-client_id" content="942642541332-k4rnn4ttgpucn4kh11rkt5ioif6sveg6.apps.googleusercontent.com">-->
+	<meta name="signin-client_id" id="signin-client_id">
+
+	<script type="text/javascript">
+		var latestSent = "";
+		
+		function login() {
+			var nick = document.getElementById("username").value;
+			var pass = document.getElementById("password").value;
+			var callback = "No_enviado";
+			var url = "webapi/users/login";
+			var parametros = {
+					'nickname': nick,
+					'password': pass
+				};
+			if (latestSent != url) {
+				$.ajax({
+					data: JSON.stringify(parametros),
+					type: "POST",
+					url: url,
+					contentType :"application/json;charSet=UTF-8",
+					dataType : "xml",
+					success : function(xml) {
+						/*var allMetaElements = document.getElementsByTagName('meta');
+						var i = 0;
+						var enc = false;
+						while (!enc && i<allMetaElements.length) { 
+							if (allMetaElements[i].getAttribute("name") == "signin-client_id") { 
+								allMetaElements[i].setAttribute('content', $(xml).find("message").text()); 
+							 	enc = true;
+							}else{
+								i++;
+							}
+						} */
+						document.cookie = "idUser=" + $(xml).find("message").text() + "; expires=Thu, 18 Dec 2017 12:00:00 UTC; path=/";
+						window.location.href = "/home_page.html"
+				    }
+				});
+			}
+			latestSent = url;
+		}
+
+
+		/*function onSignIn(googleUser) {
+			var profile = googleUser.getBasicProfile();
+  			console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+ 			 console.log('Name: ' + profile.getName());
+  			console.log('Image URL: ' + profile.getImageUrl());
+  			console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+  			window.location.href = "/home_page.html";
+		}*/
+
+		/*function signOut() {
+			var auth2 = gapi.auth2.getAuthInstance();
+			auth2.signOut().then(function () {
+				console.log('User signed out.');
+			});
+			window.location.href = "index_homecinema.html";
+		}*/
+
+</script>
+
+
+
+</head>
+<body>
+	<div class="container">
+		<div class="jumbotron">
+			<h1>Avisador de estrenos de cine</h1>
+			<h2>Recibe informaci&oacute;n en tiempo real de pel&iacute;culas en cartelera o pr&oacute;ximas a estrenarse</h2>
+			<p>S&eacute; el primero en saber cuando se estrena tu pel&iacute;cula favorita, en qu&eacute; cines est&aacute; disponible y muchas cosas m&aacute;s.</p> 
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-inverse">
+					<div class="panel-heading">Accede al sitio</div>
+					<div class="panel-body">
+						<form name="form" role="form">
+							<div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+								<label for="username">Nickname</label>
+								<input type="text" name="username" id="username" class="form-control" ng-model="vm.username" required />
+								<!--<span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Introduce tu nickname</span>-->
+							</div>
+							<div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+								<label for="password">Contrase&ntilde;a</label>
+								<input type="password" name="password" id="password" class="form-control" ng-model="vm.password" required />
+								<!--<span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Se requiere una contrase&ntilde;a</span>-->
+							</div>
+						</form>
+						<div class "row">
+							<div class="col-md-12">
+								<a class='btn btn-success btn-block btn-lg' role="button" onclick="login()"><p align=center>Entrar</p></a>
+							</div>
+						</div>
+						<div class "row">
+							<div class="col-md-12">
+								<a href="/recuperar_pass.html"><p align=center>¿Has olvidado tu contrase&ntilde;a?</p></a>
+							</div>
+						</div>
+						<div class "row">
+							<div class="col-md-12">
+								<p align=center>¿A&uacute;n no te has registrado? <a href="/register_home.html">Registrate</a></p>
+								<hr>
+							</div>
+						</div>
+						<div>
+						<div class="row">
+							<div class="col-md-12">
+								<!--<div class="g-signin2" data-onsuccess="onSignIn"></div>
+								    <a href="#" class='btn btn-danger btn-block btn-lg' role="button">Login with <i class="fa fa-google fa-4" aria-hidden="true"></i></a>-->
+							</div>
+				                    <!--<div class="col-md-6">
+				                     	<a href="#" class='btn btn-primary btn-block btn-lg' role="button">Login with <i class="fa fa-facebook-official fa-4" aria-hidden="true"></i></a>
+				                     </div>-->
+				                 </div>
+				             </div>
+				         </div>
+				     </div>
+				 </div>    
+				</div>
+			</div>
+
+			<script src="assets/js/lib/angular/angular.js"></script>
+			<script src="assets/js/lib/angular/angular-resource.js"></script>
+			<script src="assets/js/app.js"></script>
+			<script src="assets/js/services.js"></script>
+			<script src="assets/js/controllers.js"></script>
+			<script src="assets/js/filters.js"></script>
+			<script src="assets/js/directives.js"></script>
+		</body>
+		</html>

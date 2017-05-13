@@ -1,0 +1,385 @@
+<html>
+<head><title>Avisador Homecinema</title>
+	<link rel="icon" type="/image/png" href="/images/favicon.png" />
+	<!-- ================== BEGIN BASE CSS STYLE ================== -->
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+	<link href="assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
+	<link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="assets/css/animate.min.css" rel="stylesheet" />
+	<link href="assets/css/style.css" rel="stylesheet" />
+	<link href="assets/css/style-responsive.css" rel="stylesheet" />
+	<link href="assets/css/theme/default.css" rel="stylesheet" id="theme" />
+	<link href="assets/plugins/bootstrap/css/simple-sidebar.css" rel="stylesheet">
+
+	<!-- ================== END BASE CSS STYLE ================== -->
+
+	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
+	<link href="assets/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" />
+	<link href="assets/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
+	<link href="assets/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
+	<!-- ================== END PAGE LEVEL STYLE ================== -->
+
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="assets/plugins/pace/pace.min.js"></script>
+	<!-- ================== END BASE JS ================== -->
+	<!--<meta name="google-signin-client_id" content="942642541332-k4rnn4ttgpucn4kh11rkt5ioif6sveg6.apps.googleusercontent.com">-->
+	<meta name="signin-client_id" id="signin-client_id">
+	<script>
+		function askforafilm() {
+			var parameter;
+			var titulo = document.getElementById("titulo").value;
+			var response = "json";
+			var callback = "No_enviado";
+			var url = "http://www.omdbapi.com/?";
+			var parametros = {
+				't': titulo,
+				'r':response
+			};
+			url += "t=" + titulo + "&r="+response;
+			$.ajax({
+				type: "GET",
+				url: url,
+				success : function(json) {
+					if(json.Response.localeCompare("False")){
+						filmload(json);
+					}else{
+						alert("No hemos podido encontrar tu película.");
+					}
+
+			    },
+			});
+		}
+
+		function filmload(json) {
+			//var divRow = document.getElementById("divRow");
+			var h3 = document.getElementById("title");
+			var img = document.getElementById("portada");
+			var anyo = document.getElementById("anyo");
+			var estreno = document.getElementById("estreno");
+			var duracion = document.getElementById("duracion");
+			var genero = document.getElementById("genero");
+			var director = document.getElementById("director");
+			var sinopsis = document.getElementById("sinopsis");
+			var addFavorite = document.getElementById("btn_saveFilm");
+			
+			
+			/*var divRowin = document.createElement("div");
+			divRowin.setAttribute("id", "divRowin");
+			divRowin.setAttribute("class", "row");
+
+			var divCol = document.createElement("div");
+			divCol.setAttribute("id", "divCol");
+			divCol.setAttribute("class", "col-md-12");
+
+			var panelInverse = document.createElement("div");
+			panelInverse.setAttribute("id", "divPanelInverse");
+			panelInverse.setAttribute("class", "panel panel-inverse");
+			
+			var panelHeading = document.createElement("div");
+			panelHeading.setAttribute("id", "divPanelHeading");
+			panelHeading.setAttribute("class", "panel-heading");*/
+
+			/*var h3 = document.createElement("h3");
+			h3.setAttribute("id", "titulo");
+			h3.setAttribute("class", "panel-title");*/
+			h3.innerHTML = json.Title;
+
+			/*var panelBody = document.createElement("div");
+			panelBody.setAttribute("id", "divPanelBody");
+			panelBody.setAttribute("class", "panel-body");
+
+			var colCover = document.createElement("div");
+			colCover.setAttribute("id", "colCover");
+			colCover.setAttribute("class", "col-md-6");
+
+			var colContent = document.createElement("div");
+			colContent.setAttribute("id", "colContent");
+			colContent.setAttribute("class", "col-md-6");
+
+			var divContent = document.createElement("div");
+			divContent.setAttribute("id", "divRow1");*/
+
+		/*	var img = document.createElement("img");
+			img.setAttribute("id", "portada");*/
+			img.setAttribute("src", json.Poster);
+
+			/*var anyo = document.createElement("h4");
+			anyo.setAttribute("id", "anyo");*/
+			anyo.innerHTML = json.Year;
+
+			/*var estreno = document.createElement("h4");
+			estreno.setAttribute("id", "estreno");*/
+			estreno.innerHTML = json.Released;
+
+			/*var duracion = document.createElement("h4");
+			duracion.setAttribute("id", "duracion");*/
+			duracion.innerHTML = json.Runtime;
+
+			/*var genero= document.createElement("h4");
+			genero.setAttribute("id", "genero");*/
+			genero.innerHTML = json.Genre;
+
+			/*var director= document.createElement("h4");
+			director.setAttribute("id", "director");*/
+			director.innerHTML = json.Director;
+
+			/*var sinopsis= document.createElement("h4");
+			sinopsis.setAttribute("id", "sinopsis");*/
+			sinopsis.innerHTML = json.Plot;
+
+			/*var addFavorite= document.createElement("a");
+			addFavorite.setAttribute("onclick", "savefilm(" + json + ")");
+			addFavorite.setAttribute("class", "btn btn-primary btn-block btn-lg btn-separator");
+			addFavorite.setAttribute("role", "button");*/
+			addFavorite.innerHTML = "A&ntildeadir a favoritos";
+
+			/*divRow.appendChild(divCol);
+			divCol.appendChild(panelInverse);
+			panelInverse.appendChild(panelHeading);
+			panelHeading.appendChild(h3);
+			panelInverse.appendChild(panelBody);
+			panelBody.appendChild(divContent);
+			divContent.appendChild(divRowin);
+			divRowin.appendChild(colCover);
+			divRowin.appendChild(colContent);
+			colCover.appendChild(img);
+			colContent.appendChild(anyo);
+			colContent.appendChild(estreno);
+			colContent.appendChild(duracion);
+			colContent.appendChild(genero);
+			colContent.appendChild(director);
+			colContent.appendChild(sinopsis);
+			divContent.appendChild(addFavorite);*/
+		}
+
+		var latestSent = "";
+		
+		function savefilm() {
+			var idUser = getCookie("idUser");
+			var titulo = document.getElementById("title").innerHTML;
+			var portada = document.getElementById("portada").src;
+			var anyo = document.getElementById("anyo").innerHTML;
+			var estreno = document.getElementById("estreno").innerHTML;
+			var duracion = document.getElementById("duracion").innerHTML;
+			var genero = document.getElementById("genero").innerHTML;
+			var director = document.getElementById("director").innerHTML;
+			var sinopsis = document.getElementById("sinopsis").innerHTML;
+			var callback = "No_enviado";
+			var parametros = {
+				'id_user': idUser,
+				'titulo': titulo,
+				'portada': portada,
+				'anyo': anyo,
+				'estreno': estreno,
+				'duracion': duracion,
+				'genero': genero,
+				'director': director,
+				'sinopsis': sinopsis,
+			};
+			var url = "webapi/films/addfav";
+			if (latestSent != url) {
+				$.ajax({
+					data: JSON.stringify(parametros),
+					type: "POST",
+					url: url,
+					contentType :"application/json;charSet=UTF-8",
+					dataType : "xml",
+					success : function(xml) {
+						if($(xml).find("message").text() == "201"){
+								alert("Película añadida a tu lista de favoritos.");
+							}
+				    }
+				});
+			}
+			latestSent = url;
+		}
+
+		function getCookie(cname) {
+		    var name = cname + "=";
+		    var ca = document.cookie.split(';');
+		    for(var i = 0; i < ca.length; i++) {
+		        var c = ca[i];
+		        while (c.charAt(0) == ' ') {
+		            c = c.substring(1);
+		        }
+		        if (c.indexOf(name) == 0) {
+		            return c.substring(name.length, c.length);
+		        }
+		    }
+		    return "";
+		}
+
+		function signOut() {
+			var allMetaElements = document.getElementsByTagName('meta');
+			var i = 0;
+			var enc = false;
+			while (!enc && i<allMetaElements.length) { 
+				if (allMetaElements[i].getAttribute("name") == "signin-client_id") { 
+					allMetaElements[i].setAttribute('content', "Sign Out");
+					enc = true;
+				}else{
+					i++;
+				}
+			} 
+			window.location.href = "index_homecinema.html";
+		}
+	</script>
+</head>
+<body>
+	<div id="wrapper">
+
+		<!-- Sidebar -->
+		<div id="sidebar-wrapper">
+			<ul class="sidebar-nav">
+				<li class="sidebar-brand">
+					<a href="#">
+						Men&uacute;
+					</a>
+				</li>
+				<li>
+					<a href="/home_page.html">Inicio</a>
+				</li>
+				<li>
+					<a href="">Perfil de usuario</a>
+				</li>
+				<li>
+					<a href="/lista_peliculas.html">Mis Pel&iacute;culas</a>
+				</li>
+				<li>
+					<a onclick="signOut();">Cerrar Sesi&oacute;n</a>
+				</li>
+			</ul>
+
+		</div>
+		<!-- /#sidebar-wrapper -->
+
+		<!-- Page Content -->
+		<div id="page-content-wrapper">
+			<div class="container-fluid">
+				<h1 style="margin-bottom: 5px;">Buscador de pel&iacute;culas de estreno</h1>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="panel panel-inverse">
+							<div class="panel-heading">
+								<h4 class="panel-title">Busca una pel&iacute;cula</h4>
+							</div>
+							<div class="panel-body">
+								<h2>Podemos encontrar y darte informaci&oacute;n de la pel&iacute;cula que quieras.</h2>
+								<ul> 
+									<li>Busca una pel&iacute;cula.</li> 
+									<ul>
+										<li>
+											Si esta est&aacute; pr&oacute;xima a estrenarse puedes suscribirte a ella.
+										</li> 
+										<li>
+											Te avisaremos el mismo d&iacute;a del estreno y te diremos en que cines de Bilbao puedes verla.
+										</li> 
+									</ul>
+									<ul>
+										<li>
+											Si la pel&iacute;cula ya se ha estrenado te diremos en que cines de Bilbao puedes verla.
+										</li> 
+									</ul>
+									<li>
+										Se&ntilde;ala las pel&iacute;culas que ya has visto y punt&uacute;alas para que otros usuarios vean la nota media de la pel&iacute;cula y deja un comentario.
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="panel panel-inverse">
+							<div class="panel-heading">
+								<h4 class="panel-title">Buscar pel&iacute;cula por t&iacute;tulo</h4>
+							</div>
+							<div class="panel-body">
+								<div class="bs-component">
+									<form class="form-horizontal" id="search-by-title-form" onsubmit="return false;">
+										<p>Puedes escribir el t&iacute;tulo de una pel&iacute;cula y buscarla, no es necesario especificar su año. En caso de no saber el t&iacute;tulo completo ayudanos con el a&ntilde;o de la pel&iacute;cula y la encontraremos para t&iacute;.</p>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<label class="control-label col-sm-2" for="t">T&iacute;tulo</label>
+													<div class="col-sm-10">
+														<input type="text" class="form-control" id="titulo" placeholder="titulo"/>   
+													</div>
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="row">
+													<div class="col-md-6">
+														<a class='btn btn-primary btn-block btn-lg btn-separator' id="search-by-title-button" onclick="askforafilm()" role="button">Buscar</a>
+													</div>
+													<div class="col-md-6">
+														<a class='btn btn-default btn-block btn-lg btn-separator' id="search-by-title-reset" onclick="formReset()" role="button">Reset</a>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="hide" id="search-by-title-request">
+											<br>
+											<p>Request:</p>
+											<pre class="alert alert-box"><a href="javascript:;" target="_blank"></a></pre>
+										</div>
+										<div id="search-by-title-progress" class="hide progress progress-info progress-striped active">
+											<div class="progress-bar" style="width: 100%;">
+											</div>
+										</div>
+										<div class="hide" id="search-by-title-response">
+											<p>Response:</p>
+											<pre class="alert alert-success" style="margin-bottom: 0px; white-space: normal;"></pre>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="divRow" class="row">
+					<div id="divCol" class="col-md-12">
+						<div id="panelInverse" class="panel panel-inverse">
+							<div id="panelHeading" class="panel-heading">
+								<h3 id="title" class="panel-title"></h3>
+							</div>
+							<div class="panel-body">
+								<div id="divRowin" class="row">
+									<div id="divColCover" class="col-md-6">
+										<img id="portada" src=""/>
+									</div>
+									<div id="divColContent" class="col-md-6">
+										<h4 id="anyo"></h4>
+										<h4 id="estreno"></h4>
+										<h4 id="genero"></h4>
+										<h4 id="duracion"></h4>
+										<h4 id="director"></h4>
+										<h4 id="sinopsis"></h4>
+									</div>
+								</div>
+								<a class='btn btn-primary btn-block btn-lg btn-separator' id="btn_saveFilm" onclick="savefilm()" role="button">Añadir a Favoritos</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /#page-content-wrapper -->
+
+	</div>
+	<!-- /#wrapper -->
+
+	<!-- jQuery -->
+	<script src="assets/plugins/bootstrap/js/jquery.js"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+	<!-- Menu Toggle Script -->
+	<script>
+		$("#menu-toggle").click(function(e) {
+			e.preventDefault();
+			$("#wrapper").toggleClass("toggled");
+		});
+	</script>
+</body>
+</html>

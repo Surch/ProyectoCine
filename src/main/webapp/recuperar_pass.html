@@ -1,0 +1,88 @@
+<html>
+<head><title>Avisador Homecinema</title>
+	<link rel="icon" type="/image/png" href="/images/favicon.png" />
+
+	<!-- ================== BEGIN BASE CSS STYLE ================== -->
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+	<link href="assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
+	<link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="assets/css/animate.min.css" rel="stylesheet" />
+	<link href="assets/css/style.css" rel="stylesheet" />
+	<link href="assets/css/style-responsive.css" rel="stylesheet" />
+	<link href="assets/css/theme/default.css" rel="stylesheet" id="theme" />
+	<!-- ================== END BASE CSS STYLE ================== -->
+	
+	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
+	<link href="assets/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" />
+	<link href="assets/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
+	<link href="assets/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
+	<!-- ================== END PAGE LEVEL STYLE ================== -->
+	
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="assets/plugins/pace/pace.min.js"></script>
+	<script src="/jquery.min.js"></script>
+	<!-- ================== END BASE JS ================== -->
+	<script type="text/javascript">	
+		var req;
+		var latestSent = "";
+
+		function remind() {
+			var email = document.getElementById("email").value;
+			if(email != ""){
+				var url = "webapi/email/remind/" + escape(email);
+				if (latestSent != url) {
+					$.ajax({url:url, success: callback});
+				}
+				latestSent = url;
+				if(callback=="202"){
+					alert("En breve recibirás un email con tu contraseña.");
+				}else{
+					alert("Ese correo no existe, vuelva a intentarlo.");
+				}
+			}	
+		}
+
+		function callback(xml) {
+			// update the HTML DOM based on whether or not message is valid
+			parseMessage("gestorUsuarios", xml);
+		}
+		
+		function parseMessage(fieldID, xml) {
+			//var message = req.responseXML.getElementsByTagName("message")[0];
+			//setMessage(fieldID, message.childNodes[0].nodeValue);
+			setMessage(fieldID, $(xml).find("message").text());
+		}
+	</script>
+
+</head>
+<body>
+	<div class="container">
+		<h1 align=center>¿Has olvidado tu contrase&ntilde;a?</h1>
+		<p align=center>Tranquilo eso le pasa a los mejores y t&uacute; eres el mejor.</p>
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-7">
+				<div class="panel panel-inverse">
+					<div class="panel-heading">Recuperar contraseña</div>
+					<div class="panel-body">
+						<form class="form-horizontal" role="form">
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="nicknameR">Introduce tu email</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="email" placeholder="email"/>   
+								</div>
+							</div>
+							<a href="#" class='btn btn-success btn-block btn-lg' role="button" onclick="rem 	ind()">Enviar clave</a>
+						</form>
+					</div>
+					<div>
+						<a href="/index_homecinema.html"><p align=center>Volver</p></a>
+					</div>
+				</div>
+			</div>    
+			<div class="col-md-2"></div>
+		</div>
+	</div>
+</body>
+</html>
